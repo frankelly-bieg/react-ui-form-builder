@@ -242,6 +242,8 @@ class DatePicker extends React.Component {
   formatMask = '';
 
   handleChange = (dt) => {
+    console.log('eeeeeee');
+
     let placeholder;
     if (dt && dt.target) {
       placeholder = (dt && dt.target && dt.target.value === '') ? this.formatMask.toLowerCase() : '';
