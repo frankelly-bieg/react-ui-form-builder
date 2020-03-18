@@ -135,6 +135,8 @@ class TextInput extends React.Component {
     props.type = 'text';
     props.className = 'form-control';
     props.name = this.props.data.field_name;
+    props.onChange = this.props.onChange;
+
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
       props.ref = this.inputField;
@@ -152,7 +154,7 @@ class TextInput extends React.Component {
         <ComponentHeader {...this.props} />
         <div className="form-group">
           <ComponentLabel {...this.props} />
-          <input {...props} />
+          <input {...props}/>
         </div>
       </div>
     );
@@ -170,6 +172,7 @@ class NumberInput extends React.Component {
     props.type = 'number';
     props.className = 'form-control';
     props.name = this.props.data.field_name;
+    props.onChange = this.props.onChange;
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
@@ -205,6 +208,7 @@ class TextArea extends React.Component {
     const props = {};
     props.className = 'form-control';
     props.name = this.props.data.field_name;
+    props.onChange = this.props.onChange;
 
     if (this.props.read_only) {
       props.disabled = 'disabled';
@@ -242,18 +246,18 @@ class DatePicker extends React.Component {
   formatMask = '';
 
   handleChange = (dt) => {
-    console.log('eeeeeee');
-
     let placeholder;
     if (dt && dt.target) {
       placeholder = (dt && dt.target && dt.target.value === '') ? this.formatMask.toLowerCase() : '';
       const formattedDate = (dt.target.value) ? format(dt.target.value, this.formatMask) : '';
+      this.props.onChange(formattedDate);
       this.setState({
         value: formattedDate,
         internalValue: formattedDate,
         placeholder,
       });
     } else {
+      this.props.onChange(dt);
       this.setState({
         value: (dt) ? format(dt, this.formatMask) : '',
         internalValue: dt,
@@ -378,6 +382,7 @@ class Dropdown extends React.Component {
     const props = {};
     props.className = 'form-control';
     props.name = this.props.data.field_name;
+    props.onChange = this.props.onChange;
 
     if (this.props.mutable) {
       props.defaultValue = this.props.defaultValue;
@@ -432,6 +437,7 @@ class Signature extends React.Component {
     const props = {};
     props.type = 'hidden';
     props.name = this.props.data.field_name;
+    props.onChange = this.props.onChange;
 
     if (this.props.mutable) {
       props.defaultValue = defaultValue;
@@ -493,6 +499,7 @@ class Tags extends React.Component {
   // state = { value: this.props.defaultValue !== undefined ? this.props.defaultValue.split(',') : [] };
 
   handleChange = (e) => {
+    this.props.onChange(e);
     this.setState({ value: e });
   };
 
@@ -552,6 +559,7 @@ class Checkboxes extends React.Component {
             const this_key = `preview_${option.key}`;
             const props = {};
             props.name = `option_${option.key}`;
+            props.onChange = self.props.onChange;
 
             props.type = 'checkbox';
             props.value = option.value;
@@ -600,6 +608,7 @@ class RadioButtons extends React.Component {
             const this_key = `preview_${option.key}`;
             const props = {};
             props.name = self.props.data.field_name;
+            props.onChange = this.props.onChange;
 
             props.type = 'radio';
             props.value = option.value;
@@ -660,6 +669,7 @@ class Rating extends React.Component {
     const props = {};
     props.name = this.props.data.field_name;
     props.ratingAmount = 5;
+    props.onChange = this.props.onChange;
 
     if (this.props.mutable) {
       props.rating = (this.props.defaultValue !== undefined) ? parseFloat(this.props.defaultValue, 10) : 0;
@@ -729,6 +739,8 @@ class Camera extends React.Component {
 
     if (target.files && target.files.length) {
       file = target.files[0];
+      this.props.onChange(e);
+
       // eslint-disable-next-line no-undef
       reader = new FileReader();
       reader.readAsDataURL(file);
@@ -760,7 +772,7 @@ class Camera extends React.Component {
         sourceDataURL = `data:image/png;base64,${this.props.defaultValue}`;
       }
     }
-    console.log('sourceDataURL', sourceDataURL);
+
     return (
       <div className={baseClasses}>
         <ComponentHeader {...this.props} />
@@ -805,6 +817,8 @@ class Range extends React.Component {
 
   changeValue = (e) => {
     const { target } = e;
+    this.props.onChange(target.value);
+
     this.setState({
       value: target.value,
     });
