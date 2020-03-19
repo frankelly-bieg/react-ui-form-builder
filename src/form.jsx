@@ -256,7 +256,8 @@ export default class ReactForm extends React.Component {
     return (<Element mutable={true} key={`form_${item.id}`} data={item} />);
   }
 
-  render() {
+
+  items() {
     let data_items = this.props.data;
 
     if (this.props.display_short) {
@@ -269,7 +270,7 @@ export default class ReactForm extends React.Component {
       }
     });
 
-    const items = data_items.map(item => {
+    return data_items.map(item => {
       switch (item.element) {
         case 'TextInput':
         case 'NumberInput':
@@ -295,35 +296,49 @@ export default class ReactForm extends React.Component {
           return this.getSimpleElement(item);
       }
     });
+  }
+
+  formContent(items) {
+    const actionName = (this.props.action_name) ? this.props.action_name : 'Submit';
+    const backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
 
     const formTokenStyle = {
       display: 'none',
     };
 
-    const actionName = (this.props.action_name) ? this.props.action_name : 'Submit';
-    const backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
+    return(
+      <React.Fragment>
+        { this.props.authenticity_token &&
+          <div style={formTokenStyle}>
+            <input name='utf8' type='hidden' value='&#x2713;' />
+            <input name='authenticity_token' type='hidden' value={this.props.authenticity_token} />
+            <input name='task_id' type='hidden' value={this.props.task_id} />
+          </div>
+        }
+        { this.items() }
+        <div className='btn-toolbar'>
+          { !this.props.hide_actions &&
+            <input type='submit' className='btn btn-school btn-big btn-agree' value={actionName} />
+          }
+          { !this.props.hide_actions && this.props.back_action &&
+            <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
+          }
+        </div>
+      </React.Fragment>
+    );
+  }
+
+  render() {
+    if(this.props.form_content){
+      return this.formContent();
+    }
 
     return (
       <div>
         <FormValidator emitter={this.emitter} />
         <div className='react-form-builder-form'>
           <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
-            { this.props.authenticity_token &&
-              <div style={formTokenStyle}>
-                <input name='utf8' type='hidden' value='&#x2713;' />
-                <input name='authenticity_token' type='hidden' value={this.props.authenticity_token} />
-                <input name='task_id' type='hidden' value={this.props.task_id} />
-              </div>
-            }
-            {items}
-            <div className='btn-toolbar'>
-              { !this.props.hide_actions &&
-                <input type='submit' className='btn btn-school btn-big btn-agree' value={actionName} />
-              }
-              { !this.props.hide_actions && this.props.back_action &&
-                <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
-              }
-            </div>
+            { this.formContent() }
           </form>
         </div>
       </div>
