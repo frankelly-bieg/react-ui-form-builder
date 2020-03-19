@@ -137,14 +137,15 @@ export default class ReactForm extends React.Component {
   }
 
   _collect(item) {
-    const itemData = { name: item.field_name };
+    const itemData = { name: item.id };
     const ref = this.inputs[item.field_name];
+
     if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
       const checked_options = [];
       item.options.forEach(option => {
         const $option = ReactDOM.findDOMNode(ref.options[`child_ref_${option.key}`]);
         if ($option.checked) {
-          checked_options.push(option.key);
+          checked_options.push(option.value);
         }
       });
       itemData.value = checked_options;

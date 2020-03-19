@@ -134,6 +134,7 @@ class TextInput extends React.Component {
     const props = {};
     props.type = 'text';
     props.className = 'form-control';
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     props.onChange = this.props.onChange;
 
@@ -171,6 +172,7 @@ class NumberInput extends React.Component {
     const props = {};
     props.type = 'number';
     props.className = 'form-control';
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     props.onChange = this.props.onChange;
 
@@ -207,6 +209,7 @@ class TextArea extends React.Component {
   render() {
     const props = {};
     props.className = 'form-control';
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     props.onChange = this.props.onChange;
 
@@ -313,6 +316,7 @@ class DatePicker extends React.Component {
     const props = {};
     props.type = 'date';
     props.className = 'form-control';
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     const readOnly = this.props.data.readOnly || this.props.read_only;
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -381,6 +385,7 @@ class Dropdown extends React.Component {
   render() {
     const props = {};
     props.className = 'form-control';
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     props.onChange = this.props.onChange;
 
@@ -436,6 +441,7 @@ class Signature extends React.Component {
     let canClear = !!defaultValue;
     const props = {};
     props.type = 'hidden';
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     props.onChange = this.props.onChange;
 
@@ -510,6 +516,7 @@ class Tags extends React.Component {
     });
     const props = {};
     props.isMulti = true;
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     props.onChange = this.handleChange;
 
@@ -558,8 +565,8 @@ class Checkboxes extends React.Component {
           {this.props.data.options.map((option) => {
             const this_key = `preview_${option.key}`;
             const props = {};
-            props.name = `option_${option.key}`;
             props.onChange = self.props.onChange;
+            props.name = `${this.props.data.id}[]`;
 
             props.type = 'checkbox';
             props.value = option.value;
@@ -607,6 +614,7 @@ class RadioButtons extends React.Component {
           {this.props.data.options.map((option) => {
             const this_key = `preview_${option.key}`;
             const props = {};
+            props.id = self.props.data.id;
             props.name = self.props.data.field_name;
             props.onChange = this.props.onChange;
 
@@ -667,6 +675,7 @@ class Rating extends React.Component {
 
   render() {
     const props = {};
+    props.id = this.props.data.id;
     props.name = this.props.data.field_name;
     props.ratingAmount = 5;
     props.onChange = this.props.onChange;
@@ -762,6 +771,7 @@ class Camera extends React.Component {
   render() {
     let baseClasses = 'SortableItem rfb-item';
     const name = this.props.data.field_name;
+    const id = this.props.data.id;
     const fileInputStyle = this.state.img ? { display: 'none' } : null;
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
     let sourceDataURL;
@@ -783,7 +793,7 @@ class Camera extends React.Component {
             : (<div className="image-upload-container">
 
             <div style={fileInputStyle}>
-              <input name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
+              <input id={id} name={name} type="file" accept="image/*" capture="camera" className="image-upload" onChange={this.displayImage} />
               <div className="image-upload-control">
                 <div className="btn btn-default btn-school"><i className="fa fa-camera"></i> Upload Photo</div>
                 <p>Select an image from your computer or device.</p>
@@ -826,6 +836,7 @@ class Range extends React.Component {
 
   render() {
     const props = {};
+    const id = this.props.data.id;
     const name = this.props.data.field_name;
 
     props.type = 'range';
@@ -878,7 +889,7 @@ class Range extends React.Component {
           <div className="visible_marks">
             {visible_marks}
           </div>
-          <input name={name} value={this.state.value} type="hidden" />
+          <input id={id} name={name} value={this.state.value} type="hidden" />
           <datalist id={props.list}>
             {_datalist}
           </datalist>
