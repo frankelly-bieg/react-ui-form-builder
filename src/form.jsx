@@ -9,7 +9,7 @@ import FormValidator from './form-validator';
 import FormElements from './form-elements';
 
 const {
-  Image, Checkboxes, Signature, Download, Camera,
+  Image, Checkboxes, Signature, Download, Camera, Attachment
 } = FormElements;
 
 export default class ReactForm extends React.Component {
@@ -64,6 +64,7 @@ export default class ReactForm extends React.Component {
       element: item.element,
       value: '',
     };
+
     if (item.element === 'Rating') {
       $item.value = ref.inputField.current.state.rating;
     } else if (item.element === 'Tags') {
@@ -72,6 +73,8 @@ export default class ReactForm extends React.Component {
       $item.value = ref.state.value;
     } else if (item.element === 'Camera') {
       $item.value = ref.state.img ? ref.state.img.replace('data:image/png;base64,', '') : '';
+    } else if (item.element === 'Attachment') {
+      $item.value = ref.state.file;
     } else if (ref && ref.inputField) {
       $item = ReactDOM.findDOMNode(ref.inputField.current);
       if (typeof $item.value === 'string') {
@@ -293,6 +296,8 @@ export default class ReactForm extends React.Component {
           return <Download download_path={this.props.download_path} mutable={true} key={`form_${item.id}`} data={item} />;
         case 'Camera':
           return <Camera ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} onChange={this.elementOnChange} />;
+        case 'Attachment':
+          return <Attachment ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} onChange={this.elementOnChange} />;
         default:
           return this.getSimpleElement(item);
       }

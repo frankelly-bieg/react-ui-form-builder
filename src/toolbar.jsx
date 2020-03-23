@@ -208,11 +208,18 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'Camera',
-        name: 'Camera',
+        name: 'Camera2',
         icon: 'fa fa-camera',
         label: 'Placeholder Label',
         field_name: 'camera_',
       },
+      {
+        key: 'Attachment',
+        name: 'Attachment',
+        icon: 'fa fa-file',
+        label: 'Placeholder Label',
+        field_name: 'attachment_',
+      }
     ];
   }
 

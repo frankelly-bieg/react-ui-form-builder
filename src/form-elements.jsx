@@ -816,6 +816,88 @@ class Camera extends React.Component {
   }
 }
 
+class Attachment extends React.Component {
+
+  state = {
+    file: null,
+    name: null
+  }
+
+  setFile = (e) => {
+    const self = this;
+    const target = e.target;
+    let file; let
+      reader;
+
+    if (target.files && target.files.length) {
+      file = target.files[0];
+
+      // eslint-disable-next-line no-undef
+      reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => {
+        self.setState({
+          file: reader.result,
+          name: target.files[0].name
+        }, () => {
+          this.props.onChange(e);
+        });
+      };
+    }
+  };
+
+  clearFile = () => {
+    this.setState({
+      file: null,
+      name: null
+    });
+  };
+
+  render() {
+    let baseClasses = 'SortableItem rfb-item';
+    const name = this.props.data.field_name;
+    const id = this.props.data.id;
+    const fileInputStyle = this.state.file ? { display: 'none' } : null;
+    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+    let sourceDataURL;
+    if (this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0) {
+        sourceDataURL = this.props.defaultValue;
+    }
+
+    return (
+      <div className={baseClasses}>
+        <ComponentHeader {...this.props} />
+        <div className="form-group">
+          <ComponentLabel {...this.props} />
+          {this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0
+            ? (<div><span>{sourceDataURL}</span></div>)
+            : (<div className="image-upload-container">
+
+            <div style={fileInputStyle}>
+              <input id={id} name={name} type="file" accept="*" className="image-upload" onChange={this.setFile} />
+              <div className="image-upload-control">
+                <div className="btn btn-default btn-school"><i className="fa fa-file"></i> Upload File</div>
+                <p>Select an file from your computer or device.</p>
+              </div>
+            </div>
+
+            { this.state.file &&
+              <div>
+                <span>{ this.state.name }</span><br />
+                <div className="btn btn-school btn-image-clear" onClick={this.clearFile}>
+                  <i className="fa fa-times"></i> Clear File
+                </div>
+              </div>
+            }
+          </div>)
+        }
+        </div>
+      </div>
+    );
+  }
+}
+
 class Range extends React.Component {
   constructor(props) {
     super(props);
@@ -918,5 +1000,6 @@ FormElements.HyperLink = HyperLink;
 FormElements.Download = Download;
 FormElements.Camera = Camera;
 FormElements.Range = Range;
+FormElements.Attachment = Attachment;
 
 export default FormElements;
