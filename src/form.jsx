@@ -77,9 +77,6 @@ export default class ReactForm extends React.Component {
       $item.value = ref.state.file;
     } else if (ref && ref.inputField) {
       $item = ReactDOM.findDOMNode(ref.inputField.current);
-      if (typeof $item.value === 'string') {
-        $item.value = $item.value.trim();
-      }
     }
     return $item;
   }
