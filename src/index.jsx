@@ -45,16 +45,7 @@ class ReactFormBuilder extends React.Component {
     return (
       <DndProvider backend={HTML5Backend}>
        <div>
-         {/* <div>
-           <p>
-             It is easy to implement a sortable interface with React DnD. Just make
-             the same component both a drag source and a drop target, and reorder
-             the data in the <code>hover</code> handler.
-           </p>
-           <Container />
-         </div> */}
          <div className="react-form-builder clearfix">
-           <div>
              <Preview files={this.props.files}
                  manualEditModeOff={this.manualEditModeOff.bind(this)}
                  showCorrectColumn={this.props.showCorrectColumn}
@@ -69,7 +60,6 @@ class ReactFormBuilder extends React.Component {
                  variables={this.props.variables}
                  editElement={this.state.editElement} />
              <Toolbar {...toolbarProps} />
-           </div>
          </div>
        </div>
        </DndProvider>

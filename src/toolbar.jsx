@@ -54,7 +54,7 @@ export default class Toolbar extends React.Component {
       {
         key: 'Header',
         name: 'Header Text',
-        icon: 'fa fa-header',
+        icon: 'icon header',
         static: true,
         content: 'Placeholder Text...',
       },
@@ -62,27 +62,27 @@ export default class Toolbar extends React.Component {
         key: 'Label',
         name: 'Label',
         static: true,
-        icon: 'fa fa-font',
+        icon: 'icon font',
         content: 'Placeholder Text...',
       },
       {
         key: 'Paragraph',
         name: 'Paragraph',
         static: true,
-        icon: 'fa fa-paragraph',
+        icon: 'icon paragraph',
         content: 'Placeholder Text...',
       },
       {
         key: 'LineBreak',
         name: 'Line Break',
         static: true,
-        icon: 'fa fa-arrows-h',
+        icon: 'icon arrows alternate horizontal',
       },
       {
         key: 'Dropdown',
         canHaveAnswer: true,
         name: 'Dropdown',
-        icon: 'fa fa-caret-square-o-down',
+        icon: 'icon caret square down outline',
         label: 'Placeholder Label',
         field_name: 'dropdown_',
         options: [],
@@ -91,7 +91,7 @@ export default class Toolbar extends React.Component {
         key: 'Tags',
         canHaveAnswer: true,
         name: 'Tags',
-        icon: 'fa fa-tags',
+        icon: 'icon tags',
         label: 'Placeholder Label',
         field_name: 'tags_',
         options: [],
@@ -100,7 +100,7 @@ export default class Toolbar extends React.Component {
         key: 'Checkboxes',
         canHaveAnswer: true,
         name: 'Checkboxes',
-        icon: 'fa fa-check-square-o',
+        icon: 'icon check square outline',
         label: 'Placeholder Label',
         field_name: 'checkboxes_',
         options: [],
@@ -109,7 +109,7 @@ export default class Toolbar extends React.Component {
         key: 'RadioButtons',
         canHaveAnswer: true,
         name: 'Multiple Choice',
-        icon: 'fa fa-dot-circle-o',
+        icon: 'icon dot circle outline',
         label: 'Placeholder Label',
         field_name: 'radiobuttons_',
         options: [],
@@ -119,7 +119,7 @@ export default class Toolbar extends React.Component {
         canHaveAnswer: true,
         name: 'Text Input',
         label: 'Placeholder Label',
-        icon: 'fa fa-font',
+        icon: 'icon font',
         field_name: 'text_input_',
       },
       {
@@ -127,7 +127,7 @@ export default class Toolbar extends React.Component {
         canHaveAnswer: true,
         name: 'Number Input',
         label: 'Placeholder Label',
-        icon: 'fa fa-plus',
+        icon: 'icon plus',
         field_name: 'number_input_',
       },
       {
@@ -135,14 +135,14 @@ export default class Toolbar extends React.Component {
         canHaveAnswer: true,
         name: 'Multi-line Input',
         label: 'Placeholder Label',
-        icon: 'fa fa-text-height',
+        icon: 'icon text height',
         field_name: 'text_area_',
       },
       {
         key: 'Image',
         name: 'Image',
         label: '',
-        icon: 'fa fa-photo',
+        icon: 'icon photo',
         field_name: 'image_',
         src: '',
       },
@@ -151,7 +151,7 @@ export default class Toolbar extends React.Component {
         canHaveAnswer: true,
         name: 'Rating',
         label: 'Placeholder Label',
-        icon: 'fa fa-star',
+        icon: 'icon star',
         field_name: 'rating_',
       },
       {
@@ -163,7 +163,7 @@ export default class Toolbar extends React.Component {
         showTimeSelect: false,
         showTimeSelectOnly: false,
         name: 'Date',
-        icon: 'fa fa-calendar',
+        icon: 'icon calendar',
         label: 'Placeholder Label',
         field_name: 'date_picker_',
       },
@@ -171,14 +171,14 @@ export default class Toolbar extends React.Component {
         key: 'Signature',
         canReadOnly: true,
         name: 'Signature',
-        icon: 'fa fa-pencil-square-o',
+        icon: 'icon pencil alternate',
         label: 'Signature',
         field_name: 'signature_',
       },
       {
         key: 'HyperLink',
         name: 'Web site',
-        icon: 'fa fa-link',
+        icon: 'icon linkify',
         static: true,
         content: 'Placeholder Web site link ...',
         href: 'http://www.example.com',
@@ -186,7 +186,7 @@ export default class Toolbar extends React.Component {
       {
         key: 'Download',
         name: 'File Attachment',
-        icon: 'fa fa-file',
+        icon: 'icon file',
         static: true,
         content: 'Placeholder file name ...',
         field_name: 'download_',
@@ -196,7 +196,7 @@ export default class Toolbar extends React.Component {
       {
         key: 'Range',
         name: 'Range',
-        icon: 'fa fa-sliders',
+        icon: 'icon sliders',
         label: 'Placeholder Label',
         field_name: 'range_',
         step: 1,
@@ -216,7 +216,7 @@ export default class Toolbar extends React.Component {
       {
         key: 'Attachment',
         name: 'Attachment',
-        icon: 'fa fa-file',
+        icon: 'icon file',
         label: 'Placeholder Label',
         field_name: 'attachment_',
       }
@@ -298,7 +298,12 @@ export default class Toolbar extends React.Component {
 
   render() {
     return (
+<<<<<<< HEAD
       <div className="react-form-builder-toolbar pull-right">
+=======
+      <div className="react-form-builder-toolbar">
+        <h4>Toolbox</h4>
+>>>>>>> Toolbox & form builder preview
         <ul>
           {
             this.state.items.map((item) => (<ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />))

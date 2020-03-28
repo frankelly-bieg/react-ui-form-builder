@@ -24,7 +24,12 @@ class ToolbarItem extends React.Component {
     if (!connectDragSource) return null;
     return (
       connectDragSource(
-        <li onClick={onClick}><i className={data.icon}></i>{data.name}</li>,
+        <li>
+          <button onClick={onClick} className="ui fluid button">
+            <i className={data.icon}/>
+            {data.name}
+            </button>
+        </li>
       )
     );
   }

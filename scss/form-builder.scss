@@ -1,11 +1,12 @@
 .react-form-builder {
+  display: flex;
+  width: 100%;
+
   .react-form-builder-preview {
     position: relative;
     width: 70%;
-    border: 1px solid #ddd;
-    background: #fafafa;
     padding: 10px;
-    box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
+    height: 100%;
     min-height: 750px;
 
     .preview-page-break {
@@ -205,15 +206,10 @@
       }
     }
     &.is-editing {
-      // .Sortable {
-      //   opacity: .5;
-      //   transition: opacity .25s ease-in;
-      // }
       .edit-form {
         z-index: 2000;
         border-right: 1px solid #ddd;
         box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
-        // width: 80%;
         left: 0;
         transition: .5s;
       }
@@ -222,6 +218,7 @@
 
   .react-form-builder-toolbar {
     width: 250px;
+    margin: 0 20px;
     background: #fff;
     margin-top: -30px;
 
@@ -240,10 +237,6 @@
         list-style: none;
         margin: 5px;
         padding: 10px;
-        border: 1px dashed #ddd;
-        i {
-          margin: 0 15px 0 10px;
-        }
       }
     }
   }
@@ -400,6 +393,15 @@
   .m-signature-pad--footer {
     position: relative;
     margin-top: 10px;
+  }
+}
+
+.ui.placeholder.center.aligned.segment {
+  min-height: initial;
+  padding: 4rem 2rem;
+  
+  .ui.header{
+    padding: 0 20px;
   }
 }
 
