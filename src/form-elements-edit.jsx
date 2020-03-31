@@ -213,14 +213,14 @@ export default class FormElementsEdit extends React.Component {
             <br />
             <div className="checkbox">
               <label>
-                <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />
-                Required
+                <input type="checkbox" checked={typeof this_checked === 'string' ? this_checked === "true" : this_checked } onChange={this.editElementProp.bind(this, 'required', 'checked')} />
+                Required2
               </label>
             </div>
             { this.props.element.hasOwnProperty('readOnly') &&
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" checked={this_read_only} value={true} onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} />
+                  <input type="checkbox" checked={typeof this_read_only === 'string' ? this_read_only === "true" : this_read_only } onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} />
                   Read only
                 </label>
               </div>
@@ -228,7 +228,7 @@ export default class FormElementsEdit extends React.Component {
             { this.props.element.hasOwnProperty('defaultToday') &&
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" checked={this_default_today} value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} />
+                  <input type="checkbox" checked={typeof this_default_today === 'string' ? this_default_today === "true" : this_default_today } onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} />
                   Default to Today?
                 </label>
               </div>
@@ -236,7 +236,7 @@ export default class FormElementsEdit extends React.Component {
             { this.props.element.hasOwnProperty('showTimeSelect') &&
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" checked={this_show_time_select} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelect', 'checked')} />
+                  <input type="checkbox" checked={typeof this_show_time_select === 'string' ? this_show_time_select === "true" : this_show_time_select } onChange={this.editElementProp.bind(this, 'showTimeSelect', 'checked')} />
                   Show Time Select?
                 </label>
               </div>
@@ -244,7 +244,7 @@ export default class FormElementsEdit extends React.Component {
             { this_show_time_select && this.props.element.hasOwnProperty('showTimeSelectOnly') &&
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" checked={this_show_time_select_only} value={true} onChange={this.editElementProp.bind(this, 'showTimeSelectOnly', 'checked')} />
+                  <input type="checkbox" checked={typeof this_show_time_select_only === 'string' ? this_show_time_select_only === "true" : this_show_time_select_only } onChange={this.editElementProp.bind(this, 'showTimeSelectOnly', 'checked')} />
                   Show Time Select Only?
                 </label>
               </div>
@@ -252,7 +252,7 @@ export default class FormElementsEdit extends React.Component {
             { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') && canHaveDisplayHorizontal &&
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
+                  <input type="checkbox" checked={typeof this_checked_inline === 'string' ? this_checked_inline === "true" : this_checked_inline } onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
                   Display horizonal
                 </label>
               </div>
