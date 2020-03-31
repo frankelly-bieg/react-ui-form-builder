@@ -214,7 +214,7 @@ export default class FormElementsEdit extends React.Component {
             <div className="checkbox">
               <label>
                 <input type="checkbox" checked={typeof this_checked === 'string' ? this_checked === "true" : this_checked } onChange={this.editElementProp.bind(this, 'required', 'checked')} />
-                Required2
+                Required
               </label>
             </div>
             { this.props.element.hasOwnProperty('readOnly') &&
