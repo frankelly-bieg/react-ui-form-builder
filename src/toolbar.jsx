@@ -208,7 +208,7 @@ export default class Toolbar extends React.Component {
       },
       {
         key: 'Camera',
-        name: 'Camera2',
+        name: 'Camera',
         icon: 'fa fa-camera',
         label: 'Placeholder Label',
         field_name: 'camera_',
@@ -299,7 +299,6 @@ export default class Toolbar extends React.Component {
   render() {
     return (
       <div className="react-form-builder-toolbar pull-right">
-        <h4>Toolbox</h4>
         <ul>
           {
             this.state.items.map((item) => (<ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />))

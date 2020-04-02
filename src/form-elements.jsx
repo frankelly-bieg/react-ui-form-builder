@@ -270,7 +270,9 @@ class DatePicker extends React.Component {
   };
 
   updateFormat(props) {
-    const { showTimeSelect, showTimeSelectOnly } = props.data;
+    let { showTimeSelect, showTimeSelectOnly } = props.data;
+    showTimeSelect = typeof showTimeSelect === 'string' ? showTimeSelect === "true" : showTimeSelect
+    showTimeSelectOnly = typeof showTimeSelectOnly === 'string' ? showTimeSelectOnly === "true" : showTimeSelectOnly
     const dateFormat = showTimeSelect && showTimeSelectOnly ? '' : props.data.dateFormat;
     const timeFormat = showTimeSelect ? props.data.timeFormat : '';
     const formatMask = (`${dateFormat} ${timeFormat}`).trim();
@@ -312,13 +314,16 @@ class DatePicker extends React.Component {
   }
 
   render() {
-    const { showTimeSelect, showTimeSelectOnly } = this.props.data;
+    let { showTimeSelect, showTimeSelectOnly } = this.props.data;
     const props = {};
     props.type = 'date';
     props.className = 'form-control';
     props.id = this.props.data.id;
     props.name = this.props.data.field_name;
-    const readOnly = this.props.data.readOnly || this.props.read_only;
+    showTimeSelect = typeof showTimeSelect === 'string' ? showTimeSelect === "true" : showTimeSelect
+    showTimeSelectOnly = typeof showTimeSelectOnly === 'string' ? showTimeSelectOnly === "true" : showTimeSelectOnly
+    let readOnly = this.props.data.readOnly || this.props.read_only;
+    readOnly = typeof readOnly === 'string' ? readOnly === "true" : readOnly
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const placeholderText = this.formatMask.toLowerCase();
 
@@ -340,7 +345,7 @@ class DatePicker extends React.Component {
               <input type="text"
                      name={props.name}
                      ref={props.ref}
-                     readOnly={readOnly}
+                     readOnly={false}
                      placeholder={this.state.placeholder}
                      value={this.state.value}
                      className="form-control" />
