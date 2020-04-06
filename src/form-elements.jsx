@@ -30,6 +30,10 @@ const myxss = new xss.FilterXSS({
   },
 });
 
+const stringToBool = (val) => {
+  return typeof val === 'string' ? val === "true" : val;
+}
+
 const ComponentLabel = (props) => {
   const hasRequiredLabel = (props.data.hasOwnProperty('required') && props.data.required === true && !props.read_only);
 
@@ -250,10 +254,13 @@ class DatePicker extends React.Component {
 
   handleChange = (dt) => {
     let placeholder;
+
     if (dt && dt.target) {
       placeholder = (dt && dt.target && dt.target.value === '') ? this.formatMask.toLowerCase() : '';
       const formattedDate = (dt.target.value) ? format(dt.target.value, this.formatMask) : '';
+
       this.props.onChange(formattedDate);
+
       this.setState({
         value: formattedDate,
         internalValue: formattedDate,
@@ -261,6 +268,7 @@ class DatePicker extends React.Component {
       });
     } else {
       this.props.onChange(dt);
+
       this.setState({
         value: (dt) ? format(dt, this.formatMask) : '',
         internalValue: dt,
@@ -271,8 +279,8 @@ class DatePicker extends React.Component {
 
   updateFormat(props) {
     let { showTimeSelect, showTimeSelectOnly } = props.data;
-    showTimeSelect = typeof showTimeSelect === 'string' ? showTimeSelect === "true" : showTimeSelect
-    showTimeSelectOnly = typeof showTimeSelectOnly === 'string' ? showTimeSelectOnly === "true" : showTimeSelectOnly
+    showTimeSelect = stringToBool(showTimeSelect);
+    showTimeSelectOnly = stringToBool(showTimeSelectOnly);
     const dateFormat = showTimeSelect && showTimeSelectOnly ? '' : props.data.dateFormat;
     const timeFormat = showTimeSelect ? props.data.timeFormat : '';
     const formatMask = (`${dateFormat} ${timeFormat}`).trim();
@@ -284,10 +292,12 @@ class DatePicker extends React.Component {
   updateDateTime(props, formatMask) {
     let value;
     let internalValue;
-    const { defaultToday } = props.data;
+    let defaultToday = stringToBool(props.data.defaultToday)
+
     if (defaultToday && (props.defaultValue === '' || props.defaultValue === undefined)) {
       value = format(new Date(), formatMask);
       internalValue = new Date();
+      defaultToday = false;
     } else {
       value = props.defaultValue;
 
@@ -305,14 +315,6 @@ class DatePicker extends React.Component {
     };
   }
 
-  componentWillReceiveProps(props) {
-    const formatUpdated = this.updateFormat(props);
-    if ((props.data.defaultToday !== !this.state.defaultToday) || formatUpdated) {
-      const state = this.updateDateTime(props, this.formatMask);
-      this.setState(state);
-    }
-  }
-
   render() {
     let { showTimeSelect, showTimeSelectOnly } = this.props.data;
     const props = {};
@@ -320,10 +322,10 @@ class DatePicker extends React.Component {
     props.className = 'form-control';
     props.id = this.props.data.id;
     props.name = this.props.data.field_name;
-    showTimeSelect = typeof showTimeSelect === 'string' ? showTimeSelect === "true" : showTimeSelect
-    showTimeSelectOnly = typeof showTimeSelectOnly === 'string' ? showTimeSelectOnly === "true" : showTimeSelectOnly
+    showTimeSelect = stringToBool(showTimeSelect)
+    showTimeSelectOnly = stringToBool(showTimeSelectOnly)
     let readOnly = this.props.data.readOnly || this.props.read_only;
-    readOnly = typeof readOnly === 'string' ? readOnly === "true" : readOnly
+    readOnly = stringToBool(readOnly);
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const placeholderText = this.formatMask.toLowerCase();
 
