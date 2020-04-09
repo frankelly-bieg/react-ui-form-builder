@@ -9,6 +9,16 @@
     height: 100%;
     min-height: 750px;
 
+    .inline.fields {
+      display: flex;
+      flex-wrap: wrap;
+
+      .field{
+        padding: 0.5rem
+      }
+    }
+
+
     .preview-page-break {
       padding: 5px 0;
       border-top: 2px dotted #ccc;
@@ -51,8 +61,10 @@
       display: inline-block !important;
       margin-right: 10px !important;
     }
+
     .form-label {
       display: block !important;
+      width: 100% !important;
     }
 
     .edit-form {
@@ -69,17 +81,51 @@
       transition: .5s;
       overflow-y: auto;
 
-      h4, .dismiss-edit {
-        margin-bottom: 30px;
+      .edit-form-element-title{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+
+        h4, .close.icon {
+          margin: 0px;
+        }
+
+        .close.icon {
+          cursor: pointer;
+          font-size: 125%;
+        }
       }
-      .dismiss-edit {
-        cursor: pointer;
-        margin-top: 10px;
-        font-size: 125%;
+
+      .double-field-container{
+        display: flex;
+
+        div:not(:last-child), input:not(:last-child){
+          margin-right: 1rem;
+        }
+
+        input[type=number]{
+          width: 21%;
+        }
       }
+
+      .rdw-editor-toolbar{
+        align-items: center;
+      }
+
+      .rdw-fontsize-dropdown{
+        height: 20px;
+
+        .rdw-dropdown-selectedtext{
+          span{
+            font-size: 13px;
+          }
+        }
+      }
+
       textarea {
         width: 100%;
       }
+
       .form-group {
         .form-group-range {
           label {
@@ -100,14 +146,56 @@
           }
         }
       }
+
+      .ui.grid{
+        margin: 0px;
+      }
+
       .dynamic-option-list {
         margin-bottom: 15px;
+
         ul {
           list-style-type: none;
           margin: 0;
           padding: 0;
-          li {
+
+
+          .header{
+            .field{
+              margin: 0;
+              padding-top: 0;
+              padding-bottom: 0;
+              padding-left: 0;
+            }
+          }
+
+          .body:first{
             margin-top: 10px;
+          }
+
+          .body{
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+
+            li:first {
+              margin-top: 0px;
+            } 
+    
+            .column{
+              margin: 0px;
+              padding: 0.5rem 0.5rem 0.5rem 0;
+            }
+
+            .column{
+              display: flex;
+              align-items: center;
+            }
+
+
+            .two.wide.column{
+              justify-content: center;
+            }
+
             input {
               &.form-control {
                 width: 84.26%;
@@ -183,13 +271,19 @@
           opacity: 0;
           z-index: 100;
           position: relative;
-          .label {
-            position: absolute;
-            left: 20px;
-          }
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+
           .toolbar-header-buttons {
-            position: absolute;
-            right: 20px;
+            display: flex;
+
+            .btn {
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              padding-left: 1rem;
+            }
           }
         }
         &:hover {
@@ -201,6 +295,10 @@
           }
           .toolbar-header {
             opacity: 1;
+
+            .toolbar-header-buttons .btn{
+              cursor: pointer;
+            }
           }
         }
       }
@@ -236,7 +334,7 @@
         cursor: pointer;
         list-style: none;
         margin: 5px;
-        padding: 10px;
+        padding: 5px;
       }
     }
   }
@@ -394,6 +492,12 @@
     position: relative;
     margin-top: 10px;
   }
+}
+
+.range > .range-values{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
 }
 
 .ui.placeholder.center.aligned.segment {

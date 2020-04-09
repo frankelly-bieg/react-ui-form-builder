@@ -209,7 +209,7 @@ export default class Toolbar extends React.Component {
       {
         key: 'Camera',
         name: 'Camera',
-        icon: 'fa fa-camera',
+        icon: 'icon camera',
         label: 'Placeholder Label',
         field_name: 'camera_',
       },
