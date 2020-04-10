@@ -60,6 +60,9 @@ export default class ReactForm extends React.Component {
   }
 
   _getItemValue(item, ref) {
+
+    console.log(item, ref);
+
     let $item = {
       element: item.element,
       value: '',
@@ -321,10 +324,10 @@ export default class ReactForm extends React.Component {
         { this.items() }
         <div className='btn-toolbar'>
           { !this.props.hide_actions &&
-            <input type='submit' className='btn btn-school btn-big btn-agree' value={actionName} />
+            <input type='submit' className='ui button' value={actionName} />
           }
           { !this.props.hide_actions && this.props.back_action &&
-            <a href={this.props.back_action} className='btn btn-default btn-cancel btn-big'>{backName}</a>
+            <a href={this.props.back_action} className='ui basic button'>{backName}</a>
           }
         </div>
       </React.Fragment>
@@ -340,7 +343,7 @@ export default class ReactForm extends React.Component {
       <div>
         <FormValidator emitter={this.emitter} />
         <div className='react-form-builder-form'>
-          <form encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
+          <form className="ui form" style={{overflow: 'display'}} encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
             { this.formContent() }
           </form>
         </div>
