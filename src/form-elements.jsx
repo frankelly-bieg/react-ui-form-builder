@@ -29,15 +29,11 @@ const myxss = new xss.FilterXSS({
   },
 });
 
-<<<<<<< HEAD
 const stringToBool = (val) => {
   return typeof val === 'string' ? val === "true" : val;
 }
 
-const ComponentLabel = (props) => {
-=======
 const containerClass = (props) => {
->>>>>>> [WIP] Builder to Semantic-UI, ReactBootstrapSlider still present
   const hasRequiredLabel = (props.data.hasOwnProperty('required') && props.data.required === true && !props.read_only);
 
   return `field ${hasRequiredLabel ? "required" : ""}`
