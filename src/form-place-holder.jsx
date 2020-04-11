@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PLACE_HOLDER = 'form-place-holder';
+const PLACE_HOLDER = 'ui placeholder center aligned segment';
 
 export default class PlaceHolder extends React.Component {
   render() {
     return (
       this.props.show &&
       <div className={PLACE_HOLDER} >
-        <div>{this.props.text}</div>
+        <div className="ui header">
+          <span>{this.props.text}</span>
+          </div>
       </div>
     );
   }

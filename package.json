@@ -1,6 +1,6 @@
 {
   "name": "react-ui-form-builder",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A complete React form builder based on Semantic UI & React DnD",
   "main": "lib/index.js",
   "license": "MIT",
@@ -34,7 +34,6 @@
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.4.1",
     "prop-types": "^15.7.2",
-    "react-bootstrap-slider": "^2.2.2",
     "react-datepicker": "^2.9.6",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^9.4.0",

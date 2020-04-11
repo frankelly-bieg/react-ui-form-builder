@@ -142,7 +142,7 @@ export default class Preview extends React.Component {
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>
-        <div className="edit-form" ref={this.editForm}>
+        <div className="edit-form ui form" ref={this.editForm}>
           { this.props.editElement !== null &&
             <FormElementsEdit showCorrectColumn={this.props.showCorrectColumn} files={this.props.files} manualEditModeOff={this.manualEditModeOff} preview={this} element={this.props.editElement} updateElement={this.updateElement} />
           }
@@ -154,5 +154,5 @@ export default class Preview extends React.Component {
   }
 }
 Preview.defaultProps = {
-  showCorrectColumn: false, files: [], editMode: false, editElement: null, className: 'react-form-builder-preview pull-left',
+  showCorrectColumn: false, files: [], editMode: false, editElement: null, className: 'ui segment react-form-builder-preview',
 };
