@@ -285,32 +285,6 @@ export default class FormElementsEdit extends React.Component {
           </div>
         }
 
-        { this.props.element.hasOwnProperty('step') &&
-          <div className="form-group">
-            <div className="form-group-range">
-              <label className="control-label" htmlFor="rangeStep">Step</label>
-              <input id="rangeStep" type="number" className="form-control" defaultValue={this.props.element.step} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'step', 'value')} />
-            </div>
-          </div>
-        }
-        { this.props.element.hasOwnProperty('min_value') &&
-          <div className="field">
-            <label htmlFor="rangeMin">Min</label>
-            <div className="double-field-container">
-              <input id="rangeMin" type="number" defaultValue={this.props.element.min_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'min_value', 'value')} />
-              <input type="text" defaultValue={this.props.element.min_label} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'min_label', 'value')} />
-            </div>
-          </div>
-        }
-        { this.props.element.hasOwnProperty('max_value') &&
-            <div className="field">
-              <label htmlFor="rangeMax">Max</label>
-              <div className="double-field-container">
-                <input id="rangeMax" type="number" defaultValue={this.props.element.max_value} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'max_value', 'value')} />
-                <input type="text" defaultValue={this.props.element.max_label} onBlur={this.updateElement.bind(this)} onChange={this.editElementProp.bind(this, 'max_label', 'value')} />
-              </div>
-            </div>
-        }
         { this.props.element.hasOwnProperty('default_value') &&
           <div className="field">
             <label htmlFor="defaultSelected">Default Selected</label>
