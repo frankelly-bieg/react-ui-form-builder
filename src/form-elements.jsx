@@ -5,7 +5,6 @@ import xss from 'xss';
 import { format, parse } from 'date-fns';
 // import moment from 'moment';
 import SignaturePad from 'react-signature-canvas';
-import ReactBootstrapSlider from 'react-bootstrap-slider';
 import ReactDatePicker from 'react-datepicker';
 import StarRating from './star-rating';
 import HeaderBar from './header-bar';
