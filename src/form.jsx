@@ -239,6 +239,19 @@ export default class ReactForm extends React.Component {
     return errors;
   }
 
+  getInputElement(item) {
+    const Input = FormElements[item.element];
+    return (<Input
+      handleChange={this.handleChange}
+      onChange={this.elementOnChange.bind(this)}
+      ref={c => this.inputs[item.field_name] = c}
+      mutable={true}
+      key={`form_${item.id}`}
+      data={item}
+      read_only={this.props.read_only}
+      defaultValue={this._getDefaultValue(item)} />);
+  }
+
   getSimpleElement(item) {
     const Element = FormElements[item.element];
     return (<Element mutable={true} key={`form_${item.id}`} data={item} />);
@@ -268,6 +281,7 @@ export default class ReactForm extends React.Component {
         case 'RadioButtons':
         case 'Rating':
         case 'Tags':
+          return this.getInputElement(item);
         case 'Signature':
           return <Signature ref={c => this.inputs[item.field_name] = c} read_only={this.props.read_only || item.readOnly} mutable={true} key={`form_${item.id}`} data={item} defaultValue={this._getDefaultValue(item)} onChange={this.elementOnChange.bind(this)} />;
         case 'Checkboxes':

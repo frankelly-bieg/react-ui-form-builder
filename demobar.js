@@ -61,9 +61,10 @@ export default class Demobar extends React.Component {
       <div style={{ margin: '10px', width: '68%' }}>
         <div style={{
           display: 'flex', 
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}>
-          <h4 className="pull-left">Preview</h4>
+          <h4 style={{margin: 0}}>Preview</h4>
           <button className="ui small button primary" style={{ marginRight: '10px' }} onClick={this.showPreview.bind(this)}>Preview Form</button>
         </div>
         
