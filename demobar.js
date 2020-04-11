@@ -68,19 +68,7 @@ export default class Demobar extends React.Component {
         </div>
         
         { this.state.previewVisible && 
-          <div style={{
-              display: 'flex', 
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'fixed',
-              left: 0,
-              top: 0,
-              height: '100vh',
-              width: '100%',
-              backgroundColor: 'rgba(0,0,0,.85)',
-              zIndex: 1000
-            }}
-          >
+          <div className="ui dimmer modals page visible active">
             <div className={modalClass}>
               <div className="scrolling content" style={{overflow: 'visible'}}>
                 <ReactFormGenerator
