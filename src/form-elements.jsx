@@ -390,26 +390,48 @@ class DatePicker extends React.Component {
   }
 }
 
-class Dropdown extends React.Component {
+class Tags extends React.Component {
   constructor(props) {
     super(props);
     this.inputField = React.createRef();
+    const { defaultValue, data } = props;
+    this.state = { value: this.getDefaultValue(defaultValue, data.options) };
+    this.isMulti = true;
   }
 
+  getDefaultValue(defaultValue, options){
+    if (defaultValue) {
+      if (typeof defaultValue === 'string') {
+        const vals = defaultValue.split(',').map(x => x.trim());
+        return options.filter(x => vals.indexOf(x.value) > -1);
+      }
+      return options.filter(x => defaultValue.indexOf(x.value) > -1);
+    }
+    return [];
+  }
+
+  handleChange = (e) => {
+    this.props.onChange(e);
+    this.setState({ value: e });
+  };
+
   render() {
+    const options = this.props.data.options.map(option => {
+      option.label = option.text;
+      return option;
+    });
     const props = {};
-    props.className = 'form-control';
+    props.isMulti = this.isMulti;
     props.id = this.props.data.id;
     props.name = this.props.data.field_name;
-    props.onChange = this.props.onChange;
+    props.onChange = this.handleChange;
 
+    props.options = options;
+    if (!this.props.mutable) { props.value = options[0].text; } // to show a sample of what tags looks like
     if (this.props.mutable) {
-      props.defaultValue = this.props.defaultValue;
+      props.isDisabled = this.props.read_only;
+      props.value = this.state.value;
       props.ref = this.inputField;
-    }
-
-    if (this.props.read_only) {
-      props.disabled = 'disabled';
     }
 
     let baseClasses = 'SortableItem rfb-item ui form';
@@ -420,26 +442,26 @@ class Dropdown extends React.Component {
         <ComponentHeader {...this.props} />
         <div className={containerClass(this.props)}>
           <ComponentLabel {...this.props} />
-          <div className="ui fluid selection dropdown">
-            <input type="hidden" name="dropdown_preview"/>
-            <i className="dropdown icon"/>
-            <div className="default text">Label</div>
-            <div className="menu">
-              { 
-                this.props.data.options.map((option) => {
-                  const this_key = `preview_${option.key}`;
-                  return(
-                    <div className="item" data-value={option.value} key={this_key}>
-                      {option.text}
-                    </div>
-                  );
-                }) 
-              }
-            </div>
-          </div>
+          <Select {...props} />
         </div>
       </div>
     );
+  }
+}
+
+class Dropdown extends Tags {
+  constructor(props) {
+    super(props);
+    this.isMulti = false;
+  }
+
+  getDefaultValue(value, dataOptions){
+    let defaultValue = super.getDefaultValue(value, dataOptions);
+    return defaultValue.length > 0 ? defaultValue[0] : null;
+  }
+
+  render() {
+    return super.render()
   }
 }
 
@@ -502,66 +524,6 @@ class Signature extends React.Component {
           { canClear && (
             <i className="fa fa-times clear-signature" onClick={this.clear} title="Clear Signature"></i>) }
           <input {...props} />
-        </div>
-      </div>
-    );
-  }
-}
-
-class Tags extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputField = React.createRef();
-    const { defaultValue, data } = props;
-    this.state = { value: this.getDefaultValue(defaultValue, data.options) };
-  }
-
-  getDefaultValue(defaultValue, options) {
-    if (defaultValue) {
-      if (typeof defaultValue === 'string') {
-        const vals = defaultValue.split(',').map(x => x.trim());
-        return options.filter(x => vals.indexOf(x.value) > -1);
-      }
-      return options.filter(x => defaultValue.indexOf(x.value) > -1);
-    }
-    return [];
-  }
-
-  // state = { value: this.props.defaultValue !== undefined ? this.props.defaultValue.split(',') : [] };
-
-  handleChange = (e) => {
-    this.props.onChange(e);
-    this.setState({ value: e });
-  };
-
-  render() {
-    const options = this.props.data.options.map(option => {
-      option.label = option.text;
-      return option;
-    });
-    const props = {};
-    props.isMulti = true;
-    props.id = this.props.data.id;
-    props.name = this.props.data.field_name;
-    props.onChange = this.handleChange;
-
-    props.options = options;
-    if (!this.props.mutable) { props.value = options[0].text; } // to show a sample of what tags looks like
-    if (this.props.mutable) {
-      props.isDisabled = this.props.read_only;
-      props.value = this.state.value;
-      props.ref = this.inputField;
-    }
-
-    let baseClasses = 'SortableItem rfb-item ui form';
-    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
-
-    return (
-      <div className={baseClasses}>
-        <ComponentHeader {...this.props} />
-        <div className={containerClass(this.props)}>
-          <ComponentLabel {...this.props} />
-          <Select {...props} />
         </div>
       </div>
     );

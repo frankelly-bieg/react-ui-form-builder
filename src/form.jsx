@@ -60,9 +60,6 @@ export default class ReactForm extends React.Component {
   }
 
   _getItemValue(item, ref) {
-
-    console.log(item, ref);
-
     let $item = {
       element: item.element,
       value: '',
