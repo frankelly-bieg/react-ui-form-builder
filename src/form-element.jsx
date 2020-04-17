@@ -1,4 +1,5 @@
 import React from 'react';
+import { stringToBool } from './form-elements';
 
 export default class extends React.Component {
   static defaultProps = {
@@ -13,7 +14,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <HeaderBar name={this.props.data.text} onDestroy={this.props.onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={this.props.data.required} />
+        <HeaderBar name={this.props.data.text} onDestroy={this.props.onDestroy} onEdit={this.props.onEdit} static={this.props.data.static} required={stringToBool(this.props.data.required)} />
         {this.props.children}
       </div>
     );

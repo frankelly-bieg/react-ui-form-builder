@@ -29,12 +29,12 @@ const myxss = new xss.FilterXSS({
   },
 });
 
-const stringToBool = (val) => {
+export const stringToBool = (val) => {
   return typeof val === 'string' ? val === "true" : val;
 }
 
 const containerClass = (props) => {
-  const hasRequiredLabel = (props.data.hasOwnProperty('required') && props.data.required === true && !props.read_only);
+  const hasRequiredLabel = (props.data.hasOwnProperty('required') && stringToBool(props.data.required) && !props.read_only);
 
   return `field ${hasRequiredLabel ? "required" : ""}`
 }
@@ -56,7 +56,7 @@ const ComponentHeader = (props) => {
     { props.data.pageBreakBefore &&
       <div className="preview-page-break">Page Break</div>
     }
-    <HeaderBar parent={props.parent} editModeOn={props.editModeOn} data={props.data} onDestroy={props._onDestroy} onEdit={props.onEdit} static={props.data.static} required={props.data.required} />
+    <HeaderBar parent={props.parent} editModeOn={props.editModeOn} data={props.data} onDestroy={props._onDestroy} onEdit={props.onEdit} static={props.data.static} required={stringToBool(props.data.required)} />
   </div>
   );
 };
@@ -642,7 +642,7 @@ class Image extends React.Component {
     return (
       <div className={baseClasses} style={style}>
         { !this.props.mutable &&
-          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} required={this.props.data.required} />
+          <HeaderBar parent={this.props.parent} editModeOn={this.props.editModeOn} data={this.props.data} onDestroy={this.props._onDestroy} onEdit={this.props.onEdit} required={stringToBool(this.props.data.required)} />
         }
         { this.props.data.src &&
           <img src={this.props.data.src} width={this.props.data.width} height={this.props.data.height} />

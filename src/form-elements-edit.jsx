@@ -9,6 +9,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import DynamicOptionList from './dynamic-option-list';
 import { get } from './stores/requests';
 import ID from './UUID';
+import { stringToBool } from './form-elements';
 
 const toolbar = {
   options: ['inline', 'list', 'textAlign', 'fontSize', 'link', 'history'],
@@ -103,7 +104,7 @@ export default class FormElementsEdit extends React.Component {
       this.props.element.dirty = true;
     }
 
-    const this_checked = this.props.element.hasOwnProperty('required') ? this.props.element.required : false;
+    const this_checked = this.props.element.hasOwnProperty('required') ? stringToBool(this.props.element.required) : false;
     const this_read_only = this.props.element.hasOwnProperty('readOnly') ? this.props.element.readOnly : false;
     const this_default_today = this.props.element.hasOwnProperty('defaultToday') ? this.props.element.defaultToday : false;
     const this_show_time_select = this.props.element.hasOwnProperty('showTimeSelect') ? this.props.element.showTimeSelect : false;
@@ -212,50 +213,50 @@ export default class FormElementsEdit extends React.Component {
 
             <br />
 
-            <div className="checkbox">
-              <label>
+            <div className="field">
+              <div className="ui checkbox">
                 <input type="checkbox" checked={typeof this_checked === 'string' ? this_checked === "true" : this_checked } value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />
-                Required
-              </label>
+                <label>Required</label>
+              </div>
             </div>
             { this.props.element.hasOwnProperty('readOnly') &&
-              <div className="checkbox">
-                <label>
+              <div className="field">
+                <div className="ui checkbox">
                   <input type="checkbox" checked={typeof this_read_only === 'string' ? this_read_only === "true" : this_read_only } value={true} onChange={this.editElementProp.bind(this, 'readOnly', 'checked')} />
-                  Read only
-                </label>
+                  <label>Read only</label>
+                </div>
               </div>
             }
             { this.props.element.hasOwnProperty('defaultToday') &&
-              <div className="checkbox">
-                <label>
+              <div className="field">
+                <div className="ui checkbox">
                   <input type="checkbox" checked={typeof this_default_today === 'string' ? this_default_today === "true" : this_default_today } value={true} onChange={this.editElementProp.bind(this, 'defaultToday', 'checked')} />
-                  Default to Today
-                </label>
+                  <label>Default to Today</label>
+                </div>            
               </div>
             }
             { this.props.element.hasOwnProperty('showTimeSelect') &&
-              <div className="checkbox">
-                <label>
+              <div className="field">
+                <div className="ui checkbox">
                   <input type="checkbox" checked={typeof this_show_time_select === 'string' ? this_show_time_select === "true" : this_show_time_select } value={true} onChange={this.editElementProp.bind(this, 'showTimeSelect', 'checked')} />
-                  Show Time Select
-                </label>
-              </div>
+                  <label>Show Time Select</label>
+                </div>
+              </div> 
             }
             { this_show_time_select && this.props.element.hasOwnProperty('showTimeSelectOnly') &&
-              <div className="checkbox">
-                <label>
+              <div className="field">
+                <div className="ui checkbox">
                   <input type="checkbox" checked={typeof this_show_time_select_only === 'string' ? this_show_time_select_only === "true" : this_show_time_select_only } value={true} onChange={this.editElementProp.bind(this, 'showTimeSelectOnly', 'checked')} />
-                  Show Time Select Only
-                </label>
+                  <label>Show Time Select Only</label>
+                </div> 
               </div>
             }
             { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') && canHaveDisplayHorizontal &&
-              <div className="checkbox">
-                <label>
+              <div className="field">
+                <div className="ui checkbox">
                   <input type="checkbox" checked={typeof this_checked_inline === 'string' ? this_checked_inline === "true" : this_checked_inline } value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
-                  Display horizonal
-                </label>
+                  <label>Display horizonal</label>
+                </div> 
               </div>
             }
           </div>
