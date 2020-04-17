@@ -277,7 +277,6 @@ export default class Toolbar extends React.Component {
   render() {
     return (
       <div className="react-form-builder-toolbar">
-        <h4>Toolbox</h4>
         <ul>
           {
             this.state.items.map((item) => (<ToolbarItem data={item} key={item.key} onClick={this._onClick.bind(this, item)} onCreate={this.create} />))

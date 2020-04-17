@@ -220,6 +220,7 @@
       }
     }
     .Sortable {
+      width: 100%;
       transition: opacity .25s ease-in;
       position: relative;
       cursor: move;
@@ -315,10 +316,12 @@
   }
 
   .react-form-builder-toolbar {
-    width: 250px;
+    width: 30%;
     margin: 0 20px;
     background: #fff;
     margin-top: -30px;
+    display: flex;
+    justify-content: center;
 
     h4 {
       margin-top: 0;
@@ -330,6 +333,7 @@
     }
     ul {
       padding: 0;
+      width: 250px;
       li {
         cursor: pointer;
         list-style: none;
