@@ -25,7 +25,7 @@ class ToolbarItem extends React.Component {
     return (
       connectDragSource(
         <li>
-          <button onClick={onClick} className="ui fluid button">
+          <button onClick={onClick} className="ui fluid button" type="button">
             <i className={data.icon}/>
             {data.name}
             </button>
