@@ -261,20 +261,20 @@ class DatePicker extends React.Component {
       placeholder = (dt && dt.target && dt.target.value === '') ? this.formatMask.toLowerCase() : '';
       const formattedDate = (dt.target.value) ? format(dt.target.value, this.formatMask) : '';
 
-      this.props.onChange(formattedDate);
-
       this.setState({
         value: formattedDate,
         internalValue: formattedDate,
         placeholder,
+      }, () => {
+        this.props.onChange(formattedDate);
       });
     } else {
-      this.props.onChange(dt);
-
       this.setState({
         value: (dt) ? format(dt, this.formatMask) : '',
         internalValue: dt,
         placeholder,
+      }, () => {
+        this.props.onChange(dt);
       });
     }
   };
@@ -406,8 +406,11 @@ class Tags extends React.Component {
   }
 
   handleChange = (e) => {
-    this.props.onChange(e);
-    this.setState({ value: e });
+    this.setState({ 
+      value: e 
+    }, () => {
+      this.props.onChange(e);
+    });
   };
 
   render() {
@@ -736,7 +739,6 @@ class Camera extends React.Component {
 
     if (target.files && target.files.length) {
       file = target.files[0];
-      this.props.onChange(e);
 
       // eslint-disable-next-line no-undef
       reader = new FileReader();
@@ -745,6 +747,8 @@ class Camera extends React.Component {
       reader.onloadend = () => {
         self.setState({
           img: reader.result,
+        }, () => {
+          this.props.onChange(e);
         });
       };
     }
