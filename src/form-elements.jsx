@@ -532,6 +532,32 @@ class Checkboxes extends React.Component {
   constructor(props) {
     super(props);
     this.options = {};
+    this.state = this.stateObject();
+  }
+
+  handleChange = (e) => {
+    const option = this.props.data.options.find(option => option.value === e.target.value)
+
+    if(option){
+      this.setState({
+        [option.key]: e.target.checked
+      }, () => {
+        this.props.onChange(e)
+      })
+    }
+  };
+
+  stateObject = () => {
+    const state = {};
+
+    this.props.data.options.forEach(option => {
+      const defaultChecked = this.props.defaultValue !== undefined && this.props.defaultValue.indexOf(option.key) > -1;
+      const checked = this.props.defaultValue.some(defaultOption => defaultOption.value === option.value);
+
+      state[`${option.key}`] = defaultChecked || checked;
+    })
+
+    return state;
   }
 
   render() {
@@ -549,13 +575,13 @@ class Checkboxes extends React.Component {
           {this.props.data.options.map((option) => {
             const key = `preview_${option.key}`;
             const props = {};
-            props.onChange = self.props.onChange;
+            props.onChange = this.handleChange;
             props.name = `${this.props.data.id}[]`;
 
             props.type = 'checkbox';
             props.value = option.value;
             if (self.props.mutable) {
-              props.defaultChecked = self.props.defaultValue !== undefined && self.props.defaultValue.indexOf(option.key) > -1;
+              props.checked = self.state[option.key];
             }
             if (this.props.read_only) {
               props.disabled = 'disabled';

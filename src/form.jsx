@@ -21,6 +21,7 @@ export default class ReactForm extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.answerData = this._convert(props.answer_data);
     this.emitter = new EventEmitter();
   }
@@ -64,8 +65,6 @@ export default class ReactForm extends React.Component {
       element: item.element,
       value: '',
     };
-
-    console.log(item.element);
 
     if (item.element === 'Rating') {
       $item.value = ref.inputField.current.state.rating;
@@ -153,6 +152,15 @@ export default class ReactForm extends React.Component {
         }
       });
       itemData.value = checked_options;
+    } else if(item.element === 'Tags'){
+      const options = [];
+      const values = Array.isArray(this._getItemValue(item, ref).value) ? this._getItemValue(item, ref).value : []
+
+      values.forEach(itemOption => {
+        options.push(itemOption.value)
+      })
+
+      itemData.value = options;
     } else {
       if (!ref) return null;
       itemData.value = this._getItemValue(item, ref).value;
