@@ -552,7 +552,7 @@ class Checkboxes extends React.Component {
 
     this.props.data.options.forEach(option => {
       const defaultChecked = this.props.defaultValue !== undefined && this.props.defaultValue.indexOf(option.key) > -1;
-      const checked = this.props.defaultValue.some(defaultOption => defaultOption.value === option.value);
+      const checked = this.props.defaultValue ? this.props.defaultValue.some(defaultOption => defaultOption.value === option.value) : false;
 
       state[`${option.key}`] = defaultChecked || checked;
     })
