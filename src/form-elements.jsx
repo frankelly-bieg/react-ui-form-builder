@@ -836,9 +836,18 @@ class Camera extends React.Component {
 
 class Attachment extends React.Component {
 
-  state = {
-    file: null,
-    name: null
+  constructor(props){
+    super(props);
+    let name = null;
+
+    if(props.defaultValue && typeof props.defaultValue === "string" && props.defaultValue !== ""){
+      name = props.defaultValue.substring(props.defaultValue.lastIndexOf("/") + 1, props.defaultValue.lastIndexOf("?"))
+    }
+
+    this.state = {
+      file: null,
+      name
+    }
   }
 
   setFile = (e) => {
@@ -869,6 +878,8 @@ class Attachment extends React.Component {
     this.setState({
       file: null,
       name: null
+    }, () => {
+      this.props.onChange();
     });
   };
 
@@ -876,7 +887,7 @@ class Attachment extends React.Component {
     let baseClasses = 'SortableItem rfb-item ui form';
     const name = this.props.data.field_name;
     const id = this.props.data.id;
-    const fileInputStyle = this.state.file ? { display: 'none' } : null;
+    const fileInputStyle = this.state.name ? { display: 'none' } : null;
     if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
     let sourceDataURL;
     if (this.props.read_only === true && this.props.defaultValue && this.props.defaultValue.length > 0) {
@@ -900,7 +911,7 @@ class Attachment extends React.Component {
               </div>
             </div>
 
-            { this.state.file &&
+            { this.state.name &&
               <div>
                 <span>{ this.state.name }</span><br />
                 <div className="btn btn-school btn-image-clear" onClick={this.clearFile}>
