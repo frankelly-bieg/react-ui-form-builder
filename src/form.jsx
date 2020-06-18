@@ -8,7 +8,7 @@ import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
 
-import loader from "../images/loader.svg";
+import loader from "../assets/loader.svg";
 
 const {
   Image, Checkboxes, Signature, Download, Camera, Attachment
