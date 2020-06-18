@@ -8,6 +8,8 @@ import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
 
+import loader from "../images/loader.svg";
+
 const {
   Image, Checkboxes, Signature, Download, Camera, Attachment
 } = FormElements;
@@ -111,7 +113,8 @@ export default class ReactForm extends React.Component {
 
   _isInvalid(item) {
     let invalid = false;
-    if (item.required === true) {
+    
+    if (item.required === "true") {
       const ref = this.inputs[item.field_name];
       if (item.element === 'Checkboxes' || item.element === 'RadioButtons') {
         let checked_options = 0;
@@ -200,7 +203,6 @@ export default class ReactForm extends React.Component {
     let errors = [];
     if (!this.props.skip_validations) {
       errors = this.validateForm();
-      // Publish errors, if any.
       this.emitter.emit('formValidation', errors);
     }
 
@@ -313,7 +315,7 @@ export default class ReactForm extends React.Component {
   }
 
   formContent(items) {
-    const actionName = (this.props.action_name) ? this.props.action_name : 'Submit';
+    const submitName = (this.props.submit_name) ? this.props.submit_name : 'Submit';
     const backName = (this.props.back_name) ? this.props.back_name : 'Cancel';
 
     const formTokenStyle = {
@@ -330,14 +332,33 @@ export default class ReactForm extends React.Component {
           </div>
         }
         { this.items() }
-        <div className='btn-toolbar'>
-          { !this.props.hide_actions &&
-            <input type='submit' className='ui button' value={actionName} />
-          }
-          { !this.props.hide_actions && this.props.back_action &&
-            <a href={this.props.back_action} className='ui basic button'>{backName}</a>
-          }
+        { !this.props.hide_actions &&
+          <div 
+            className="ui text two column centered grid"
+            style={{ paddingTop: "20px" }}
+          >
+            <div className="row">
+              <button
+                className="ui button blue"
+                type="submit"
+                disabled={this.props.isSubmitting}
+              >
+                {this.props.isSubmitting ? (
+                  <img alt="Loader" src={loader} style={{ height: "0.8em" }} />
+                ) : (
+                  submitName
+                )}
+              </button>
+              <button
+                className="ui button blue basic"
+                type="button"
+                onClick={this.props.back_action}
+              >
+                { backName }
+              </button>
+            </div>
         </div>
+        }
       </React.Fragment>
     );
   }
@@ -348,14 +369,14 @@ export default class ReactForm extends React.Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <FormValidator emitter={this.emitter} />
         <div className='react-form-builder-form'>
           <form className='ui form' encType='multipart/form-data' ref={c => this.form = c} action={this.props.form_action} onSubmit={this.handleSubmit.bind(this)} method={this.props.form_method}>
             { this.formContent() }
           </form>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

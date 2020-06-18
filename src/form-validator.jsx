@@ -32,7 +32,7 @@ export default class FormValidator extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentWillMount() {    
     this.subscription = this.props.emitter.addListener('formValidation', (errors) => {
       this.setState({ errors });
     });
@@ -50,22 +50,20 @@ export default class FormValidator extends React.Component {
   render() {
     const errors = this.state.errors.map((error, index) => <li key={`error_${index}`} dangerouslySetInnerHTML={{ __html: myxss.process(error) }} />);
 
-    return (
-      <div>
-        { this.state.errors.length > 0 &&
-          <div className="alert alert-danger validation-error">
-            <div className="clearfix">
-              <i className="fa fa-exclamation-triangle pull-left"></i>
-              <ul className="pull-left">
-                {errors}
-              </ul>
-            </div>
-            <div className="clearfix">
-              <a className="pull-right btn btn-default btn-sm btn-danger" onClick={this.dismissModal.bind(this)}>Dismiss</a>
-            </div>
-          </div>
-        }
+    if(this.state.errors.length > 0){
+      return (
+        <div className="ui negative message">
+        <i className="close icon" onClick={this.dismissModal.bind(this)}/>
+        <div class="header">
+          Form errors
+        </div>
+        <ul className="list">
+          {errors}
+        </ul>
       </div>
-    );
+      )
+    } else {
+      return null
+    }
   }
 }
