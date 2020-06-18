@@ -8,7 +8,7 @@ import { EventEmitter } from 'fbemitter';
 import FormValidator from './form-validator';
 import FormElements from './form-elements';
 
-import loader from "../assets/loader.svg";
+import LoaderIcon from "./Icons/Loader.js";
 
 const {
   Image, Checkboxes, Signature, Download, Camera, Attachment
@@ -344,7 +344,7 @@ export default class ReactForm extends React.Component {
                 disabled={this.props.isSubmitting}
               >
                 {this.props.isSubmitting ? (
-                  <img alt="Loader" src={loader} style={{ height: "0.8em" }} />
+                  <LoaderIcon height="0.8em" />
                 ) : (
                   submitName
                 )}

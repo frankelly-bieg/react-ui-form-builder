@@ -1,6 +1,6 @@
 {
   "name": "react-ui-form-builder",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "A complete React form builder based on Semantic UI & React DnD",
   "main": "lib/index.js",
   "license": "MIT",
@@ -60,6 +60,7 @@
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/runtime-corejs2": "^7.6.3",
+    "@svgr/cli": "^5.4.0",
     "add": "^2.0.6",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
@@ -84,11 +85,12 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
+    "svgr": "svgr -d src/Icons/ assets/ --no-dimensions",
     "build": "webpack -p --config webpack.production.config.js",
     "build:dev": "webpack --mode development",
     "build:style": "node-sass ./scss/application.scss dist/app.css --output-style compressed",
-    "build:lib": "npm run transpile && npm run build:style",
-    "build:dist": "npm run build && npm run copy:dist",
+    "build:lib": "npm run svgr && npm run transpile && npm run build:style",
+    "build:dist": "npm run svgr && npm run build && npm run copy:dist",
     "copy:dist": "copyfiles -f \"./dist/*\" \"./public/dist\"",
     "prepublish": "npm run build:lib && npm run build",
     "watch": "webpack --watch",

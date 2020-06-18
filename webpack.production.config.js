@@ -57,13 +57,16 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+        test: /\.(png|jpg|gif|svg)$/i,
         use: [
           {
-            loader: 'url-loader?limit=100000'
-          }
-        ]
-      }
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
     ]
   },
   performance: {
